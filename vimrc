@@ -1,5 +1,3 @@
-syntax on
-set number
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -14,7 +12,6 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " let Vundle manage Vundle, required
-
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/nerdtree'
@@ -22,8 +19,6 @@ Plugin 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
 Plugin 'tpope/vim-fugitive'
-
-Plugin 'scrooloose/syntastic'
 
 Plugin 'fatih/vim-go'
 
@@ -33,15 +28,24 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'ekalinin/Dockerfile.vim'
 
+Plugin 'scrooloose/syntastic'
+
+Plugin 'joshdick/onedark.vim'
+
+Bundle 'elentok/plaintasks.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-let g:nerdtree_tabs_open_on_console_startup=1
-colorscheme onedark
-syntax enable
+" show existing tab with 4 spaces width
+set tabstop=4
+" " when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" " On pressing tab, insert 4 spaces
+set expandtab
 
+let g:nerdtree_tabs_open_on_console_startup=1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -52,3 +56,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:go_fmt_command = "goimports"
+colorscheme onedark
+syntax on
+set number
