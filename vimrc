@@ -34,6 +34,8 @@ Plugin 'joshdick/onedark.vim'
 
 Bundle 'elentok/plaintasks.vim'
 
+Plugin 'bling/vim-airline'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -59,3 +61,5 @@ let g:go_fmt_command = "goimports"
 colorscheme onedark
 syntax on
 set number
+set hlsearch
+
