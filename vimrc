@@ -28,18 +28,24 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'ekalinin/Dockerfile.vim'
 
-Plugin 'scrooloose/syntastic'
-
-Plugin 'joshdick/onedark.vim'
-
 Bundle 'elentok/plaintasks.vim'
 
+Plugin 'scrooloose/syntastic'
+
 Plugin 'bling/vim-airline'
+
+Plugin 'svndiff'
+
+Plugin 'scrooloose/nerdcommenter'
+
+Plugin 'majutsushi/tagbar'
+
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-
 " show existing tab with 4 spaces width
 set tabstop=4
 " " when indenting with '>', use 4 spaces width
@@ -47,6 +53,7 @@ set shiftwidth=4
 " " On pressing tab, insert 4 spaces
 set expandtab
 
+" " Nerdtree, vim-go settings
 let g:nerdtree_tabs_open_on_console_startup=1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -58,9 +65,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:go_fmt_command = "goimports"
-set t_Co=256
-syntax on
-colorscheme onedark
+
+" " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
+set t_Co=256
+set tags=~/.vimtags
 
+" " Schema and colors
+syntax on
+colorscheme onedark 
+
+" " Key mappings
+nmap <F8> :TagbarToggle<CR>
+nmap <F10> :UpdateTags<CR>
