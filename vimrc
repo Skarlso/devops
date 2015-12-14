@@ -82,3 +82,4 @@ nmap <F8> :TagbarToggle<CR>
 nmap <F10> :UpdateTags<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <F7> :tabnew<CR>
+nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
