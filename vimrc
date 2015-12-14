@@ -71,6 +71,7 @@ set number
 set hlsearch
 set t_Co=256
 set tags=~/.vimtags
+set completeopt-=preview
 
 " " Schema and colors
 syntax on
