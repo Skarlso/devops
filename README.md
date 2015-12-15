@@ -1,2 +1,4 @@
 # devops
-Scripts I use for building stuff.
+Various scripts and settings I use for building software. 
+
+Also, vim.
