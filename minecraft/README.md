@@ -11,4 +11,5 @@ Docker-Machine
 Docker container
 ----------------
 
-* Build the container with ```docker build -t minecraft:v0.1 .```
+* Build the container with ```docker build -t minecraft:v1.9 .```
+* Or conditionally, you can define build arguments for Minecraft versions like this ```docker build --build-arg MC_VERSION=1.8.1 -t minecraft:v1.8.1 .```. By default, it's 1.9.
