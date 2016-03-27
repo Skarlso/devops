@@ -18,3 +18,9 @@ Docker container
 ```
 docker run -d -v `pwd`:/data -p 25565:25565 minecraft:v1.9
 ```
+
+* If you would like to control your server and rather start it manually, you can use the same image with the following command:
+
+```
+docker run -it -v `pwd`:/data -p 25565:25565 --name mc_server minecraft:v1.9 /bin/bash
+```
