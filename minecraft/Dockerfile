@@ -14,7 +14,7 @@ ARG MC_VERSION=1.9
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get -y update
-RUN apt-get -y install openjdk-8-jre wget
+RUN apt-get -y install openjdk-8-jre wget vim
 RUN mkdir /minecraft
 
 # Download Minecraft Server components
