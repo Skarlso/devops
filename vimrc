@@ -43,6 +43,13 @@ Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
+Plugin 'bbatsov/rubocop'
+Plugin 'slim-template/vim-slim'
+Plugin 'tpope/vim-bundler'
+Plugin 'xmisao/rubyjump.vim'
+
+Bundle 'vim-ruby/vim-ruby'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -53,8 +60,12 @@ set shiftwidth=4
 " " On pressing tab, insert 4 spaces
 set expandtab
 
+" " When vim ecounters a rb file, switch to two tabs.
+filetype plugin on
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
+
 " " Nerdtree, vim-go settings
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -70,12 +81,19 @@ let g:go_fmt_command = "goimports"
 set number
 set hlsearch
 set t_Co=256
-set tags=~/.vimtags
 set completeopt-=preview
+set tags=./.tags;,~/.vimtags
 
 " " Schema and colors
 syntax on
 colorscheme onedark 
+
+" " Enabling Ruby extension.
+set nocompatible      " We're running Vim, not Vi!
+syntax on             " Enable syntax highlighting
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
 
 " " Key mappings
 nmap <F8> :TagbarToggle<CR>
