@@ -8,13 +8,13 @@ else
 fi
 
 eval $(docker-machine env)
-container_status=$(docker ps -a --filter name=mc_server)
+container_status=$(docker ps --filter name=mc_server)
 if [[ -n $container_status ]]; then
     echo "Server already running. Nothing to do here."
-    exit 0
+else
+    docker start mc_server
 fi
 
-docker start mc_server
 state=$(docker ps -q --filter name=mc_server)
 if [[ -n "$state" ]]; then
     docker exec -it mc_server bash
