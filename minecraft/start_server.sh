@@ -8,7 +8,7 @@ else
 fi
 
 eval $(docker-machine env)
-container_status=$(docker ps --filter name=mc_server)
+container_status=$(docker ps -q --filter name=mc_server)
 if [[ -n $container_status ]]; then
     echo "Server already running. Nothing to do here."
 else
