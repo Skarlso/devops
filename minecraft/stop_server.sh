@@ -1,5 +1,5 @@
 #!/bin/bash
-
+eval $(docker-machine env)
 state=$(docker stop mc_server)
 if [[ $state =~ "No such container" ]]; then
     echo "Failed to stop container!"
