@@ -43,13 +43,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
-Plugin 'bbatsov/rubocop'
-Plugin 'slim-template/vim-slim'
-Plugin 'tpope/vim-bundler'
-Plugin 'xmisao/rubyjump.vim'
-
-Bundle 'vim-ruby/vim-ruby'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
