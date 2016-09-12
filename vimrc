@@ -1,3 +1,5 @@
+" ./configure --with-features=huge --enable-pythoninterp --enable-rubyinterp
+" --enable-python3interp --with-python3-config-dir=/usr/local/Cellar/python3/
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -7,9 +9,11 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+set backspace=2
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -34,14 +38,19 @@ Plugin 'scrooloose/syntastic'
 
 Plugin 'bling/vim-airline'
 
-Plugin 'svndiff'
-
 Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
 
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
+
+Plugin 'bbatsov/rubocop'
+Plugin 'slim-template/vim-slim'
+Plugin 'tpope/vim-bundler'
+
+Bundle 'vim-ruby/vim-ruby'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -79,7 +88,7 @@ set tags=./.tags;,~/.vimtags
 
 " " Schema and colors
 syntax on
-colorscheme onedark 
+colorscheme onedark
 
 " " Enabling Ruby extension.
 set nocompatible      " We're running Vim, not Vi!
@@ -94,3 +103,4 @@ nmap <F10> :UpdateTags<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <F7> :tabnew<CR>
 nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nmap <F5> :lclose
