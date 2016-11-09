@@ -2,7 +2,7 @@
 " --enable-python3interp --with-python3-config-dir=/usr/local/Cellar/python3/
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
+set shell=bash\ -l
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -50,7 +50,10 @@ Plugin 'slim-template/vim-slim'
 Plugin 'tpope/vim-bundler'
 
 Bundle 'vim-ruby/vim-ruby'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'jacoborus/tender'
+Bundle 'kien/ctrlp.vim'
+Bundle 'jasoncodes/ctrlp-modified.vim'
+Plugin 'tacahiroy/ctrlp-funky'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -75,7 +78,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:go_fmt_command = "goimports"
 
@@ -104,3 +107,8 @@ nmap <C-n> :NERDTreeToggle<CR>
 nmap <F7> :tabnew<CR>
 nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F5> :lclose
+map <Leader>m :CtrlPModified<CR>
+map <Leader>M :CtrlPBranch<CR>
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
