@@ -17,6 +17,7 @@ set laststatus=2
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set mouse=a
 set cf clipboard+=unnamed
+set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -41,9 +42,6 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
 
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-
 Plugin 'bbatsov/rubocop'
 Plugin 'tpope/vim-bundler'
 
@@ -53,6 +51,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'jasoncodes/ctrlp-modified.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -117,3 +116,23 @@ nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"!":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
+      \ }
