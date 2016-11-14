@@ -13,20 +13,21 @@ set backspace=2
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set laststatus=2
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+set mouse=a
+set cf clipboard+=unnamed
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/nerdtree'
+Plugin 'itchyny/lightline.vim'
 
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'scrooloose/nerdtree'
 
 Plugin 'tpope/vim-fugitive'
 
 Plugin 'fatih/vim-go'
-
-Plugin 'PProvost/vim-ps1'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -36,8 +37,6 @@ Bundle 'elentok/plaintasks.vim'
 
 Plugin 'scrooloose/syntastic'
 
-Plugin 'bling/vim-airline'
-
 Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
@@ -46,7 +45,6 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 
 Plugin 'bbatsov/rubocop'
-Plugin 'slim-template/vim-slim'
 Plugin 'tpope/vim-bundler'
 
 Bundle 'vim-ruby/vim-ruby'
@@ -54,6 +52,7 @@ Plugin 'jacoborus/tender'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jasoncodes/ctrlp-modified.vim'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -79,7 +78,7 @@ let g:go_highlight_build_constraints = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:go_fmt_command = "goimports"
 
 " " Apperance settings: line number, highlight search color and tags.
@@ -112,3 +111,9 @@ map <Leader>M :CtrlPBranch<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" noremap (only normal mode)
+nnoremap <leader>l        :set list!<CR>
+nnoremap t[               :tabprevious<CR>
+nnoremap t]               :tabnext<CR>
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
