@@ -52,6 +52,9 @@ Bundle 'jasoncodes/ctrlp-modified.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'keitanakamura/neodark.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,10 +89,13 @@ set hlsearch
 set t_Co=256
 set completeopt-=preview
 set tags=./.tags;,~/.vimtags
+set termguicolors
+let macvim_skip_colorscheme=1
+let g:tender_lightline = 1
 
 " " Schema and colors
 syntax on
-colorscheme onedark
+colorscheme neodark
 
 " " Enabling Ruby extension.
 set nocompatible      " We're running Vim, not Vi!
@@ -116,9 +122,12 @@ nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+map <c-a> :w<CR>
+nmap <Leader>n :NERDTreeFind<CR>
 
+" " LightLine config
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'neodark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -135,4 +144,4 @@ let g:lightline = {
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-      \ }
+      \
