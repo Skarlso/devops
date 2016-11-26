@@ -20,6 +20,10 @@ set cf clipboard+=unnamed
 set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 
 " let Vundle manage Vundle, required
+"
+Plugin 'rip-rip/clang_complete'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'c.vim'
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'itchyny/lightline.vim'
@@ -52,9 +56,8 @@ Bundle 'jasoncodes/ctrlp-modified.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'keitanakamura/neodark.vim'
+Plugin 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -73,25 +76,28 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
 " " Nerdtree, vim-go settings
 let g:nerdtree_tabs_open_on_console_startup=0
 let g:go_highlight_functions = 1
+let g:go_metalinter_autosave = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:go_fmt_command = "goimports"
+let g:go_highlight_variables = 1
+let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
+" " let g:go_auto_sameids = 1
 
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
 set t_Co=256
+let g:neodark#use_256color = 1
 set completeopt-=preview
 set tags=./.tags;,~/.vimtags
-set termguicolors
-let macvim_skip_colorscheme=1
-let g:tender_lightline = 1
 
 " " Schema and colors
 syntax on
@@ -113,6 +119,7 @@ nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F5> :lclose
 map <Leader>m :CtrlPModified<CR>
 map <Leader>M :CtrlPBranch<CR>
+map <c-a> :w<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
@@ -122,10 +129,10 @@ nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
-map <c-a> :w<CR>
-nmap <Leader>n :NERDTreeFind<CR>
+nmap <Leader>b :GoBuild<CR>
+nmap <Leader>i :GoMetaLinter<CR>
 
-" " LightLine config
+" " LightLine configs
 let g:lightline = {
       \ 'colorscheme': 'neodark',
       \ 'active': {
@@ -144,4 +151,4 @@ let g:lightline = {
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-      \
+      \ }
