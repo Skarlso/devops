@@ -10,6 +10,7 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 set backspace=2
+set incsearch
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -20,10 +21,6 @@ set cf clipboard+=unnamed
 set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 
 " let Vundle manage Vundle, required
-"
-Plugin 'rip-rip/clang_complete'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'c.vim'
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'itchyny/lightline.vim'
@@ -38,17 +35,14 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'ekalinin/Dockerfile.vim'
 
-Bundle 'elentok/plaintasks.vim'
-
 Plugin 'scrooloose/syntastic'
 
 Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
 
-Plugin 'bbatsov/rubocop'
 Plugin 'tpope/vim-bundler'
-
+Plugin 'rodjek/vim-puppet'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'jacoborus/tender'
 Bundle 'kien/ctrlp.vim'
@@ -56,8 +50,16 @@ Bundle 'jasoncodes/ctrlp-modified.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'godlygeek/tabular'
 Plugin 'keitanakamura/neodark.vim'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'terryma/vim-smooth-scroll'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'rip-rip/clang_complete'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -76,32 +78,29 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
 " " Nerdtree, vim-go settings
 let g:nerdtree_tabs_open_on_console_startup=0
 let g:go_highlight_functions = 1
-let g:go_metalinter_autosave = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:go_fmt_command = "goimports"
-let g:go_highlight_variables = 1
-let g:clang_library_path = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib"
-" " let g:go_auto_sameids = 1
-
+let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
 set t_Co=256
-let g:neodark#use_256color = 1
 set completeopt-=preview
-set tags=./.tags;,~/.vimtags
+set tags=./.tags;,~/.vimtags;./tags
+set termguicolors
+let macvim_skip_colorscheme=1
+let g:tender_lightline = 1
 
 " " Schema and colors
 syntax on
-colorscheme neodark
+colorscheme onedark
 
 " " Enabling Ruby extension.
 set nocompatible      " We're running Vim, not Vi!
@@ -119,7 +118,6 @@ nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F5> :lclose
 map <Leader>m :CtrlPModified<CR>
 map <Leader>M :CtrlPBranch<CR>
-map <c-a> :w<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
@@ -129,10 +127,13 @@ nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
-nmap <Leader>b :GoBuild<CR>
-nmap <Leader>i :GoMetaLinter<CR>
-
-" " LightLine configs
+map <c-a> :w<CR>
+nmap <Leader>n :NERDTreeFind<CR>
+map <leader>h :set hlsearch!<cr>
+nmap <Leader>gb :Gblame<CR>
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" " LightLine config
 let g:lightline = {
       \ 'colorscheme': 'neodark',
       \ 'active': {
@@ -152,3 +153,7 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 1)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 1)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 1)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 1)<CR>
