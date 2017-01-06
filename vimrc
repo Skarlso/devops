@@ -53,14 +53,14 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'godlygeek/tabular'
 Plugin 'keitanakamura/neodark.vim'
 Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+" " Plugin 'MarcWeber/vim-addon-mw-utils'
+" " Plugin 'tomtom/tlib_vim'
+" " Plugin 'garbas/vim-snipmate'
+" " Plugin 'honza/vim-snippets'
 Plugin 'terryma/vim-smooth-scroll'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rip-rip/clang_complete'
-
+" " Plugin 'shougo/neocomplete.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -88,6 +88,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+let g:neocomplete#enable_at_startup = 1
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
@@ -116,6 +117,16 @@ nmap <C-n> :NERDTreeToggle<CR>
 nmap <F7> :tabnew<CR>
 nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F5> :lclose
+nmap <Leader>1 1gt
+nmap <Leader>2 2gt
+nmap <Leader>3 3gt
+nmap <Leader>4 4gt
+nmap <Leader>5 5gt
+nmap <Leader>6 6gt
+nmap <Leader>7 7gt
+nmap <Leader>8 8gt
+nmap <Leader>9 9gt
+nmap <Leader>0 :tablast<CR>
 map <Leader>m :CtrlPModified<CR>
 map <Leader>M :CtrlPBranch<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -157,3 +168,5 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 1)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 1)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 1)<CR>
+nnoremap <Leader>b :ls<CR>:b<Space>
+" " imap <Tab> <Plug>snipMateNextOrTrigger
