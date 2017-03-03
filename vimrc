@@ -15,11 +15,11 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set laststatus=2
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+" " set runtimepath^=~/.vim/bundle/ctrlp.vim
 set mouse=a
 set cf clipboard+=unnamed
 set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
-
+set rtp+=/usr/local/opt/fzf
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -45,9 +45,6 @@ Plugin 'tpope/vim-bundler'
 Plugin 'rodjek/vim-puppet'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'jacoborus/tender'
-Bundle 'kien/ctrlp.vim'
-Bundle 'jasoncodes/ctrlp-modified.vim'
-Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'godlygeek/tabular'
@@ -60,6 +57,7 @@ Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'terryma/vim-smooth-scroll'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rip-rip/clang_complete'
+Plugin 'junegunn/fzf.vim'
 " " Plugin 'shougo/neocomplete.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -78,7 +76,7 @@ autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
 " " Nerdtree, vim-go settings
 let g:nerdtree_tabs_open_on_console_startup=0
 let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
+let g:go_ighlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
@@ -143,6 +141,7 @@ nmap <Leader>n :NERDTreeFind<CR>
 map <leader>h :set hlsearch!<cr>
 nmap <Leader>gb :Gblame<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-p> :FZF<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " " LightLine config
 let g:lightline = {
@@ -170,3 +169,50 @@ noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 1)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 1)<CR>
 nnoremap <Leader>b :ls<CR>:b<Space>
 " " imap <Tab> <Plug>snipMateNextOrTrigger
+" [Files] Extra options for fzf
+"   e.g. File preview using Highlight
+"        (http://www.andre-simon.de/doku/highlight/en/highlight.html)
+let g:fzf_files_options =
+  \ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
