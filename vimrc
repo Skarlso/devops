@@ -50,6 +50,8 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'godlygeek/tabular'
 Plugin 'keitanakamura/neodark.vim'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'joshdick/onedark.vim'
+Plugin 'rakr/vim-one'
 " " Plugin 'MarcWeber/vim-addon-mw-utils'
 " " Plugin 'tomtom/tlib_vim'
 " " Plugin 'garbas/vim-snipmate'
@@ -58,6 +60,7 @@ Plugin 'terryma/vim-smooth-scroll'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rip-rip/clang_complete'
 Plugin 'junegunn/fzf.vim'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 " " Plugin 'shougo/neocomplete.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -90,13 +93,28 @@ let g:neocomplete#enable_at_startup = 1
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
-set t_Co=256
+" " set t_Co=256
 set completeopt-=preview
 set tags=./.tags;,~/.vimtags;./tags
 set termguicolors
 let macvim_skip_colorscheme=1
 let g:tender_lightline = 1
-
+let g:onedark_termcolors = 16
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 " " Schema and colors
 syntax on
 colorscheme onedark
@@ -125,6 +143,7 @@ nmap <Leader>7 7gt
 nmap <Leader>8 8gt
 nmap <Leader>9 9gt
 nmap <Leader>0 :tablast<CR>
+nmap <Leader>g :GoBuild<CR>
 map <Leader>m :CtrlPModified<CR>
 map <Leader>M :CtrlPBranch<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
@@ -145,7 +164,7 @@ map <C-p> :FZF<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " " LightLine config
 let g:lightline = {
-      \ 'colorscheme': 'neodark',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -186,6 +205,12 @@ let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" Markdown Mappings
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_browser='Google Chrome'
+let vim_markdown_preview_temp_file=1
+
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
