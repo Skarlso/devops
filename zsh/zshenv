@@ -1,0 +1,6 @@
+# Load env files here. These files should contain passive things, like env properties and aliases.
+if [ -d "${HOME}/.zsh/plugins" ]; then
+  for f in $HOME/.zsh/plugins/*.env; do
+    source "$f"
+  done
+fi
