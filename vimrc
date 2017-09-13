@@ -22,46 +22,24 @@ set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 set rtp+=/usr/local/opt/fzf
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'itchyny/lightline.vim'
-
 Plugin 'scrooloose/nerdtree'
-
-Plugin 'tpope/vim-fugitive'
-
 Plugin 'fatih/vim-go'
-
 Plugin 'Valloric/YouCompleteMe'
-
 Plugin 'ekalinin/Dockerfile.vim'
-
-Plugin 'scrooloose/syntastic'
-
-Plugin 'scrooloose/nerdcommenter'
-
-Plugin 'majutsushi/tagbar'
-
-Plugin 'tpope/vim-bundler'
 Plugin 'rodjek/vim-puppet'
 Bundle 'vim-ruby/vim-ruby'
-Plugin 'jacoborus/tender'
 Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'godlygeek/tabular'
 Plugin 'keitanakamura/neodark.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-one'
-" " Plugin 'MarcWeber/vim-addon-mw-utils'
-" " Plugin 'tomtom/tlib_vim'
-" " Plugin 'garbas/vim-snipmate'
-" " Plugin 'honza/vim-snippets'
-Plugin 'terryma/vim-smooth-scroll'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rip-rip/clang_complete'
 Plugin 'junegunn/fzf.vim'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-" " Plugin 'shougo/neocomplete.vim'
+Plugin 'stanangeloff/php.vim'
+Plugin 'shawncplus/phpcomplete.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -83,20 +61,15 @@ let g:go_ighlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
 let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:neocomplete#enable_at_startup = 1
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
 " " set t_Co=256
 set completeopt-=preview
 set tags=./.tags;,~/.vimtags;./tags
-set termguicolors
+" " set termguicolors
 let macvim_skip_colorscheme=1
 let g:tender_lightline = 1
 let g:onedark_termcolors = 16
@@ -117,7 +90,13 @@ if (empty($TMUX))
 endif
 " " Schema and colors
 syntax on
-colorscheme onedark
+" " set background=dark
+colorscheme one
+" " colorscheme one
+let g:airline_theme='one'
+let g:lightline = {}
+let g:lightline.colorscheme = 'one'
+" " let g:neodark#background = '#202020'
 
 " " Enabling Ruby extension.
 set nocompatible      " We're running Vim, not Vi!
@@ -164,7 +143,7 @@ map <C-p> :FZF<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " " LightLine config
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -182,10 +161,10 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 1)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 1)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 1)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 1)<CR>
+" " noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 1)<CR>
+" " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 1)<CR>
+" " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 1)<CR>
+" " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 1)<CR>
 nnoremap <Leader>b :ls<CR>:b<Space>
 " " imap <Tab> <Plug>snipMateNextOrTrigger
 " [Files] Extra options for fzf
@@ -202,14 +181,11 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
+" Notices .gitignore
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" Markdown Mappings
-let vim_markdown_preview_hotkey='<C-m>'
-let vim_markdown_preview_browser='Google Chrome'
-let vim_markdown_preview_temp_file=1
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -241,3 +217,13 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
+
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
