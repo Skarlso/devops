@@ -1,0 +1,14 @@
+--ignore-dir=vendor
+--ignore-dir=bundle
+--ignore-dir=pkg
+--ignore-dir=.tmp
+--ignore-dir=build
+--ignore-file=is:.tags
+--ignore-file=is:.tags1
+--ignore-file=is:tags
+--ignore-dir=.git
+--ignore-dir=.bundle
+--ignore-file=is:TAGS
+--ignore-file=is:.tags_sorted_by_file
+--type-set
+pp=.pp
