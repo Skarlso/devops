@@ -39,7 +39,12 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'rip-rip/clang_complete'
 Plugin 'junegunn/fzf.vim'
 Plugin 'stanangeloff/php.vim'
-Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ludovicchabant/vim-gutentags'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -69,6 +74,7 @@ set hlsearch
 " " set t_Co=256
 set completeopt-=preview
 set tags=./.tags;,~/.vimtags;./tags
+let g:gruvbox_contrast_dark = "soft"
 " " set termguicolors
 let macvim_skip_colorscheme=1
 let g:tender_lightline = 1
