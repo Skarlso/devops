@@ -23,15 +23,15 @@ Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 " On-demand loading
 Plug 'scrooloose/nerdtree'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdcommenter'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 Plug 'fatih/vim-go'
+Plug 'airblade/vim-gitgutter'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Initialize plugin system
 call plug#end()
 " " set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -66,6 +66,7 @@ let vim_markdown_preview_github=1
 let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:neocomplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
