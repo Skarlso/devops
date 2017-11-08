@@ -24,7 +24,6 @@ Plug 'itchyny/lightline.vim'
 " On-demand loading
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdcommenter'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
 Plug 'fatih/vim-go'
@@ -32,6 +31,14 @@ Plug 'airblade/vim-gitgutter'
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'vim-ruby/vim-ruby'
+Plug 'mileszs/ack.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'stanangeloff/php.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'ludovicchabant/vim-gutentags'
+
 " Initialize plugin system
 call plug#end()
 " " set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -67,6 +74,7 @@ let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:neocomplete#enable_at_startup = 1
 let g:deoplete#enable_at_startup = 1
+
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
@@ -213,4 +221,14 @@ let g:lightline = {
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
+" Put at the very end of your .vimrc file.
 
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
