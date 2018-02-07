@@ -3,12 +3,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set shell=bash\ -l
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 set backspace=2
 set incsearch
 set statusline+=%#warningmsg#
@@ -20,33 +14,31 @@ set mouse=a
 set cf clipboard+=unnamed
 set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 set rtp+=/usr/local/opt/fzf
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'fatih/vim-go'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'rodjek/vim-puppet'
-Bundle 'vim-ruby/vim-ruby'
-Plugin 'mileszs/ack.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'keitanakamura/neodark.vim'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'joshdick/onedark.vim'
-Plugin 'rakr/vim-one'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'rip-rip/clang_complete'
-Plugin 'junegunn/fzf.vim'
-Plugin 'stanangeloff/php.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ludovicchabant/vim-gutentags'
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go'
+Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/plugged/YouCompleteMe', 'do': './install.py'}
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'rodjek/vim-puppet'
+Plug 'vim-ruby/vim-ruby'
+Plug 'mileszs/ack.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'keitanakamura/neodark.vim'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'rip-rip/clang_complete'
+Plug 'junegunn/fzf.vim'
+Plug 'stanangeloff/php.vim'
+Plug 'morhetz/gruvbox'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'ludovicchabant/vim-gutentags'
+call plug#end()
 filetype plugin indent on    " required
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -116,7 +108,8 @@ nmap <F8> :TagbarToggle<CR>
 nmap <F10> :UpdateTags<CR>
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <F7> :tabnew<CR>
-nmap <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+"" nmap <F4> :execute \"vimgrep \/\" . expand("<cword>") . \"/j **\" <Bar> cw<CR>
+noremap <silent> <F4> :let @+=expand("%:p")<CR>
 nmap <F5> :lclose
 nmap <Leader>1 1gt
 nmap <Leader>2 2gt
