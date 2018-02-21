@@ -1,0 +1,15 @@
+#!/bin/bash
+
+line=''
+
+line=$line'#[fg=colour232,bg=colour227,bold]'
+line=$line' #S ' \
+line=$line'#[fg=colour227,bg=colour240,nobold]'
+line=$line'#[fg=colour233,bg=colour240]'
+line=$line' #(whoami) '
+line=$line'#[fg=colour240,bg=colour235]'
+line=$line'#[fg=colour240,bg=colour235]'
+line=$line' #I:#P '
+line=$line'#[fg=colour235,bg=colour233,nobold]'
+
+echo $line
