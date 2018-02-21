@@ -1,0 +1,7 @@
+ctrl-a ->
+    ctrl-a z ->fullscreen
+    ctrl-a , ->rename tab
+    ctrl-a [ ->select mode
+    ctrl-a w ->search through windows
+    ctrl-a arrow -> jump through windows
+
