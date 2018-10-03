@@ -1,0 +1,78 @@
+{
+	"added_words":
+	[
+		"gauge",
+		"sitegroup"
+	],
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/One Dark Material - Theme/schemes/OneDark.tmTheme",
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"vendor",
+		"bundle",
+		"build",
+		"pkg",
+		"cover",
+		"node_modules"
+	],
+	"file_exclude_patterns":
+	[
+		"*.phar"
+	],
+	"font_options":
+	[
+		"antialias"
+	],
+	"font_size": 12,
+	"highlight_modified_tabs": true,
+	"hot_exit": false,
+	"ignored_packages":
+	[
+		"Markdown",
+		"Vintage"
+	],
+	"line_padding_bottom": 1.5,
+	"line_padding_top": 1.5,
+	"linters":
+	{
+		"paths":
+		{
+			"linux":
+			[
+			],
+			"osx":
+			[
+				"~/.composer/vendor/bin"
+			],
+			"windows":
+			[
+			]
+		},
+		"phpcs":
+		{
+			"standard": "./phpcs.xml"
+		},
+		"rubocop":
+		{
+			"args":
+			[
+				"--config",
+				".rubocop.yml"
+			],
+			"use_bundle_exec": true
+		}
+	},
+	"material_theme_compact_sidebar": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_small_tab": true,
+	"material_theme_tabs_separator": true,
+	"material_theme_tree_headings": true,
+	"spell_check": false,
+	"theme": "OneDarkMaterial.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}
