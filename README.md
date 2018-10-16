@@ -26,3 +26,33 @@ Tmux Docker marrige:
 ```bash
 tmux new -d -s minecraft 'docker exec -it mc_server3 java -jar minecraft_server.jar nogui'
 ```
+
+Using tmuxp to manage tmux sessions and auto start them with the right commands already running:
+
+https://tmuxp.git-pull.com/en/latest/examples.html
+
+```yaml
+start_directory: "~/acquia/"
+session_name: Acquia
+windows:
+  - window_name: Kube
+    layout: main-vertical 
+    focus: true
+    automatic-rename: 'off'
+    shell_command_before:
+      - wd kube
+    panes:
+      - clear
+      - clear
+      - shell_command:
+        - echo "hi"
+
+  - window_name: go-furnace
+    layout: main-vertical 
+    automatic-rename: 'off'
+    shell_command_before:
+      - wd furnace
+    panes:
+      - clear
+      - clear
+```
