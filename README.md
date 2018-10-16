@@ -32,8 +32,8 @@ Using tmuxp to manage tmux sessions and auto start them with the right commands 
 https://tmuxp.git-pull.com/en/latest/examples.html
 
 ```yaml
-start_directory: "~/acquia/"
-session_name: Acquia
+start_directory: "~/code/"
+session_name: devel
 windows:
   - window_name: Kube
     layout: main-vertical 
