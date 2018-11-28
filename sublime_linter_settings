@@ -1,0 +1,23 @@
+// SublimeLinter Settings - User
+{
+    "linters":
+    {
+        "phpcs":
+        {
+            "standard": "./phpcs.xml",
+            "excludes": [
+                "*/ah-lib.php",
+                "*/fields-config-web.php"
+            ]
+        },
+        "rubocop":
+        {
+            "args":
+            [
+                "--config",
+                ".rubocop.yml"
+            ],
+            "use_bundle_exec": true
+        }
+    }
+}
