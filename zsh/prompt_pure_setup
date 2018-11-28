@@ -100,6 +100,7 @@ prompt_pure_string_length_to_var() {
 }
 
 prompt_pure_preprompt_render() {
+    yzsh_extras=""
 	# store the current prompt_subst setting so that it can be restored later
 	local prompt_subst_status=$options[prompt_subst]
 
@@ -125,9 +126,8 @@ prompt_pure_preprompt_render() {
 	preprompt+="%F{yellow}${prompt_pure_cmd_exec_time}%f"
 
     # Stage
-    preprompt+=" %F{yellow}${prompt_fields_stage}%f"
-	# make sure prompt_pure_last_preprompt is a global array
-	typeset -g -a prompt_pure_last_preprompt
+    callPromptExtras
+    preprompt+="${yzsh_extras}%f"
 
 	# if executing through precmd, do not perform fancy terminal editing
 	if [[ "$1" == "precmd" ]]; then
@@ -199,29 +199,6 @@ contains() {
   fi
 }
 
-prompt_fields_stage_check() {
-  prompt_fields_stage=""
-  _elevated=0
-
-  contains "${PWD}" "${FIELDS_ROOT}" && \
-
-  if [[ "x${FIELDS_STAGE}" != "x" ]]; then
-    if [[ "x${AWS_CREDENTIAL_FILE}" == "x" ]] && \
-      prompt_fields_stage+="cf:" || \
-      prompt_fields_stage+="legacy:"
-    prompt_fields_stage+="${FIELDS_STAGE}"
-
-    prompt_fields_stage+=" | "
-    if aws-is-elevated && ! aws-elevation-expired; then
-      prompt_fields_stage+="%F{red}elevated:✔"
-    else
-      prompt_fields_stage+="%F{green}elevated:✘"
-    fi
-
-    prompt_fields_stage="[${prompt_fields_stage}]"
-  fi
-}
-
 prompt_pure_precmd() {
 	# check exec time and store it in a variable
 	prompt_pure_check_cmd_exec_time
@@ -235,8 +212,6 @@ prompt_pure_precmd() {
 
 	# get vcs info
 	vcs_info
-
-    prompt_fields_stage_check
 
 	# preform async git dirty check and fetch
 	prompt_pure_async_tasks
