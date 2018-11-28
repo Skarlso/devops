@@ -2,7 +2,6 @@
 " --enable-python3interp --with-python3-config-dir=/usr/local/Cellar/python3/
 set nocompatible              " be iMproved, required
 filetype off                  " required
-set shell=bash\ -l
 set backspace=2
 set incsearch
 set statusline+=%#warningmsg#
@@ -19,25 +18,31 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go'
-Plug 'Valloric/YouCompleteMe', {'dir': '~/.vim/plugged/YouCompleteMe', 'do': './install.py'}
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'rodjek/vim-puppet'
 Plug 'vim-ruby/vim-ruby'
 Plug 'mileszs/ack.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'keitanakamura/neodark.vim'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
+Plug 'joshdick/onedark.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rip-rip/clang_complete'
 Plug 'junegunn/fzf.vim'
-Plug 'stanangeloff/php.vim'
+" " Plug 'stanangeloff/php.vim'
 Plug 'morhetz/gruvbox'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'ludovicchabant/vim-gutentags'
+" " Plug 'ludovicchabant/vim-gutentags'
+" " Plug 'sheerun/vim-polyglot'
+Plug 'w0rp/ale'
+Plug 'plasticboy/vim-markdown'
+" " Plug 'shawncplus/phpcomplete.vim'
+Plug 'kadekillary/subtle_solo'
+Plug 'Valloric/YouCompleteMe'
+Plug 'vimwiki/vimwiki', { 'branch': 'master' }
+" " Plug 'embear/vim-localvimrc'
 call plug#end()
 filetype plugin indent on    " required
 " show existing tab with 4 spaces width
@@ -52,6 +57,7 @@ filetype plugin on
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
 
 " " Nerdtree, vim-go settings
+let g:ycm_min_num_of_chars_for_completion=99
 let g:nerdtree_tabs_open_on_console_startup=0
 let g:go_highlight_functions = 1
 let g:go_ighlight_methods = 1
@@ -60,12 +66,13 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+let g:vim_markdown_folding_disabled = 1
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
 " " set t_Co=256
 set completeopt-=preview
-set tags=./.tags;,~/.vimtags;./tags
+set tags=./.tags,./tags;$HOME
 let g:gruvbox_contrast_dark = "soft"
 " " set termguicolors
 let macvim_skip_colorscheme=1
@@ -77,12 +84,13 @@ let g:onedark_termcolors = 16
 set termguicolors
 " " Schema and colors
 syntax on
+colorscheme onedark
+" " colorscheme onedark
 " " set background=dark
-colorscheme one
 " " colorscheme one
-let g:airline_theme='one'
+let g:airline_theme='onedark'
 let g:lightline = {}
-let g:lightline.colorscheme = 'one'
+let g:lightline.colorscheme = 'onedark'
 " " let g:neodark#background = '#202020'
 
 " " Enabling Ruby extension.
@@ -121,7 +129,7 @@ nnoremap <leader>l        :set list!<CR>
 nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+nnoremap <Leader>a :Ack<Space>
 map <c-a> :w<CR>
 nmap <Leader>n :NERDTreeFind<CR>
 map <leader>h :set hlsearch!<cr>
@@ -206,12 +214,29 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
 
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
+" " function! PhpSyntaxOverride()
+" "   hi! def link phpDocTags  phpDefine
+" "   hi! def link phpDocParam phpType
+" " endfunction
 
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
+" " augroup phpSyntaxOverride
+" "   autocmd!
+" "  autocmd FileType php call PhpSyntaxOverride()
+" " augroup END
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+nnoremap <silent> <C-t> :Files<cr>
+
+" " PHP linter settings
+let g:ale_php_phpcs_standard="./docroot/phpcs.xml"
+let g:ale_php_phpstan_configuration="./docroot/phpstan.neon"
+let g:automatic_nested_syntaxes = 1
+set re=1
