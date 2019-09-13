@@ -5,44 +5,40 @@ filetype off                  " required
 set backspace=2
 set incsearch
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" " set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set laststatus=2
+set encoding=utf-8
 " " set runtimepath^=~/.vim/bundle/ctrlp.vim
 set mouse=a
 set cf clipboard+=unnamed
 set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
-set rtp+=/usr/local/opt/fzf
+" turn hybrid line numbers on
+set number relativenumber
+set nu rnu
+
 " All of your Plugins must be added before the following line
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'fatih/vim-go'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'rodjek/vim-puppet'
-Plug 'vim-ruby/vim-ruby'
 Plug 'mileszs/ack.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'rakr/vim-one'
 Plug 'joshdick/onedark.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'rip-rip/clang_complete'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-" " Plug 'stanangeloff/php.vim'
 Plug 'morhetz/gruvbox'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-" " Plug 'ludovicchabant/vim-gutentags'
-" " Plug 'sheerun/vim-polyglot'
-Plug 'w0rp/ale'
 Plug 'plasticboy/vim-markdown'
-" " Plug 'shawncplus/phpcomplete.vim'
 Plug 'kadekillary/subtle_solo'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vimwiki/vimwiki', { 'branch': 'master' }
-" " Plug 'embear/vim-localvimrc'
+Plug 'kaicataldo/material.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'myitcv/govim'
 call plug#end()
 filetype plugin indent on    " required
 " show existing tab with 4 spaces width
@@ -55,6 +51,7 @@ set expandtab
 " " When vim ecounters a rb file, switch to two tabs.
 filetype plugin on
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
 
 " " Nerdtree, vim-go settings
 let g:ycm_min_num_of_chars_for_completion=99
@@ -84,13 +81,15 @@ let g:onedark_termcolors = 16
 set termguicolors
 " " Schema and colors
 syntax on
-colorscheme onedark
+" " colorscheme onedark
+set background=dark
+colorscheme material
 " " colorscheme onedark
 " " set background=dark
 " " colorscheme one
-let g:airline_theme='onedark'
+let g:airline_theme='material'
 let g:lightline = {}
-let g:lightline.colorscheme = 'onedark'
+" " let g:lightline.colorscheme = 'material_vim'
 " " let g:neodark#background = '#202020'
 
 " " Enabling Ruby extension.
@@ -99,6 +98,7 @@ syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
+set rtp+=/usr/local/opt/fzf
 
 " " Key mappings
 nmap <F8> :TagbarToggle<CR>
@@ -137,9 +137,9 @@ nmap <Leader>gb :Gblame<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-p> :FZF<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 " " LightLine config
 let g:lightline = {
-      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
@@ -176,7 +176,7 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'ctags --sort=yes -R -f .tags'
 " Notices .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 
