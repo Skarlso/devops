@@ -68,12 +68,14 @@ let g:go_highlight_build_constraints = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:vim_markdown_folding_disabled = 1
 let g:go_rename_command = 'gopls'
+let g:go_fmt_command = "goimports"
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
 " " set t_Co=256
 set completeopt-=preview
 set tags=./.tags,./tags;$HOME
+
 let g:gruvbox_contrast_dark = "soft"
 " " set termguicolors
 let macvim_skip_colorscheme=1
@@ -133,7 +135,6 @@ nnoremap <leader>l        :set list!<CR>
 nnoremap t[               :tabprevious<CR>
 nnoremap t]               :tabnext<CR>
 cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack<Space>
 map <c-a> :w<CR>
 nmap <Leader>n :NERDTreeFind<CR>
 map <leader>h :set hlsearch!<cr>
@@ -198,6 +199,9 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" Ctrl-r for renaming
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 function! s:buflist()
@@ -217,6 +221,8 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 \   'options': '+m',
 \   'down':    len(<sid>buflist()) + 2
 \ })<CR>
+
+nnoremap <silent> <Leader>a :Ag <C-R><C-W><CR>
 
 " " function! PhpSyntaxOverride()
 " "   hi! def link phpDocTags  phpDefine
@@ -244,3 +250,10 @@ let g:ale_php_phpcs_standard="./docroot/phpcs.xml"
 let g:ale_php_phpstan_configuration="./docroot/phpstan.neon"
 let g:automatic_nested_syntaxes = 1
 set re=1
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_file_list_command = {
+      \ 'markers': {
+      \ '.git': 'git ls-files',
+      \ },
+      \ }
+let g:gutentags_generate_on_new = 1
