@@ -16,6 +16,7 @@ set textwidth=130 colorcolumn=131,132,133,134,135,136,137,138,139,140,141
 " turn hybrid line numbers on
 set number relativenumber
 set nu rnu
+set nofixendofline
 
 " All of your Plugins must be added before the following line
 call plug#begin('~/.vim/plugged')
@@ -38,7 +39,10 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'vimwiki/vimwiki', { 'branch': 'master' }
 Plug 'kaicataldo/material.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'myitcv/govim'
+Plug 'dense-analysis/ale'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'sheerun/vim-polyglot'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 filetype plugin indent on    " required
 " show existing tab with 4 spaces width
@@ -61,9 +65,9 @@ let g:go_ighlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:vim_markdown_folding_disabled = 1
+let g:go_rename_command = 'gopls'
 " " Apperance settings: line number, highlight search color and tags.
 set number
 set hlsearch
@@ -83,11 +87,11 @@ set termguicolors
 syntax on
 " " colorscheme onedark
 set background=dark
-colorscheme material
+colorscheme onedark
 " " colorscheme onedark
 " " set background=dark
 " " colorscheme one
-let g:airline_theme='material'
+let g:airline_theme='onedark'
 let g:lightline = {}
 " " let g:lightline.colorscheme = 'material_vim'
 " " let g:neodark#background = '#202020'
